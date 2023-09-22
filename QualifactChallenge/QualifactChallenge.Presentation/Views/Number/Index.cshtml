@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Calculation";
+}
+
+@model QualifactChallenge.PresentationLayer.Models.NumberModel;
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#number-form").submit(function (event) {
+            var input1Value = $("#Input1").val();
+            var validationMessage = "@QualifactChallenge.Resource.FieldRequiredErrorMessage";
+            if (input1Value.trim() === "") {
+                event.preventDefault();
+                $("#input1-error").text(validationMessage);
+            }
+            var input2Value = $("#Input2").val();
+            if (input2Value.trim() === "") {
+                event.preventDefault();
+                $("#input2-error").text(validationMessage);
+            }
+            var sampleSizeValue = $("#SampleSize").val();
+
+            if (sampleSizeValue.trim() === "") {
+                event.preventDefault();
+                $("#sampleSize-error").text(validationMessage);
+            }
+        });
+    });
+</script>
+
+@using (Html.BeginForm("Calculate", "Number", FormMethod.Post, new { id = "number-form" }))
+{
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-3">
+        </div>
+        <div class="col-3 label-form">
+            @Html.LabelFor(x => Model.Input1)
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(x => Model.Input1, new { @class = "form-control", type = "number" })
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6">
+        </div>
+        <div class="col-3">
+            @Html.ValidationMessageFor(x => Model.Input1, "", new { @class = "error-text" })
+            <span id="input1-error" class="error-text"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-3">
+        </div>
+        <div class="col-3 label-form">
+            @Html.LabelFor(x => Model.Input2)
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(x => Model.Input2, new { @class = "form-control", type = "number" })
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6">
+        </div>
+        <div class="col-3">
+            @Html.ValidationMessageFor(x => Model.Input2, "", new { @class = "error-text" })
+            <span id="input2-error" class="error-text"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-3">
+        </div>
+        <div class="col-3 label-form">
+            @Html.LabelFor(x=>Model.SampleSize)
+        </div>
+        <div class="col-3">
+            @Html.TextBoxFor(x => Model.SampleSize, new { @class = "form-control", type = "number" })
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6">
+        </div>
+        <div class="col-3">
+            @Html.ValidationMessageFor(x => Model.SampleSize, "", new { @class = "error-text" })
+            <span id="sampleSize-error" class="error-text"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-3">
+        </div>
+        <div class="col-6 text-center">
+        <input id="process" class="btn btn-primary" type="submit" value="@QualifactChallenge.Resource.Submit" />
+        </div>
+    </div>
+</div>
+}

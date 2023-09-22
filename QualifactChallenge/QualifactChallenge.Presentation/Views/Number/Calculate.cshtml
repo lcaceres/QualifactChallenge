@@ -1,0 +1,44 @@
+﻿@model X.PagedList.IPagedList<QualifactChallenge.ApplicationLayer.DTO.DTODivisivility>
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Common;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Core.Common;
+
+<div class="container">
+<div class="row mb-3">
+    <div class="col-12 label-form  text-center">
+        @QualifactChallenge.Resource.TotalRows: @Model.TotalItemCount
+    </div>
+ </div>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">@QualifactChallenge.Resource.Numbers</th>
+            <th scope="col">@QualifactChallenge.Resource.Results</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr scope="row">
+                <td>@item.Number</td>
+                <td>@item.Result</td>
+            </tr>
+        }
+    </tbody>
+</table>
+    <div class="row mb-3 pagination-container">
+    @Html.PagedListPager(Model, page => Url.Action("Calculate", new { page }), new PagedListRenderOptions { DisplayLinkToFirstPage = PagedListDisplayMode.Always, DisplayLinkToLastPage = PagedListDisplayMode.Always })
+</div>
+
+<div class="row mb-3">
+        <div class="col-12 text-center">
+            <a href="/number" class="btn btn-primary">Return</a>
+        </div>
+    </div>
+</div>
+
+
+
+

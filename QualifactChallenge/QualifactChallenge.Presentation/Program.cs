@@ -1,7 +1,15 @@
+using QualifactChallenge.ApplicationLayer.Services.Interfaces;
+using QualifactChallenge.ApplicationLayer.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//builder.Services.AddScoped<IDivisivilityService, DivisivilityService>();
+builder.Services.AddHttpClient();
+builder.Services.AddTransient<IDivisivilityService, DivisivilityService>();
+
+
 
 var app = builder.Build();
 
